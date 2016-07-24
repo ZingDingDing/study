@@ -1,0 +1,25 @@
+@charset "utf-8";
+/* CSS Document */
+
+*{margin:0;padding:0;}
+body{ background-color:rgba(132,135,136,1.00);}
+.head img{height:70px;}
+.head li{ text-decoration:none; display:inline-block;}
+.head a{ color:rgba(255,255,255,1.00); line-height:80px;}
+.head a:visited{ color:rgba(255,255,255,1.00);}
+.head a:hover{color:rgba(197,197,197,1.00);}
+.head ul{float:right;height:70px;}
+.head{ background-color:rgba(0,0,0,1.00);}
+.bao{ width:95%; height:100%; border-bottom:solid rgba(41,40,40,1.00) 1px; border-right: solid rgba(41,40,40,1.00) 1px; background-color:rgba(255,255,255,1.00); margin:0 auto;}
+.block_one{ margin-top:20px;}
+.block_one h1{padding-top:20px; }
+.block_one h2{ color:rgba(87,85,85,1.00); margin-top:20px;}
+.block_one p{ margin-top:20px; font-size:12px;}
+.block_one p span{ color:rgba(114,114,114,1.00); margin-right:20px;}
+.block_one_one{ width:95%; margin:0 auto; height:100%; margin-bottom:20px;}
+.block_two_ul li{ list-style-type:none; margin-top:10px;}
+.block_three_pho{ width:110px; height:110px; border:1px solid rgba(166,166,166,1.00); margin-top:15px;}
+.block_three_pho img { width:80px; height:80px; margin:0 15px 0 15px; }
+.block_three_pho h3{ font-size:12px; display:block;text-align:center; margin:3px 0;}
+h4{ display: inline-block; margin-top:20px; color:rgba(159,159,159,1.00)}
+#submit{border:none; border-radius:10px;color:rgba(255,255,255,1.00);font-size:20px;line-height:40px; width:100%; height:40px; background:rgba(6,45,192,1.00);}
