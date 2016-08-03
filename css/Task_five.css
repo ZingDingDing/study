@@ -1,0 +1,43 @@
+@charset "utf-8";
+/* CSS Document */
+*{ margin:0; padding:0;/** 清除内外边距 **/ 
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, 
+/* structural elements 结构元素 */ 
+dl, dt, dd, ul, ol, li, 
+/* list elements 列表元素 */pre, 
+/* text formatting elements 文本格式元素 */ 
+form, fieldset, legend, button, input, textarea, 
+/* form elements 表单元素 */ 
+th, td, 
+/* table elements 表格元素 */ 
+img/* img elements 图片元素 */ 
+{   border:medium none;   margin: 0;   padding: 0; } 
+/** 设置默认字体 **/body,button, input, select, textarea 
+{   font: 12px/1.5 '宋体',tahoma, Srial, helvetica, sans-serif; } 
+h1, h2, h3, h4, h5, h6 { font-size: 100%; } 
+em{font-style:normal;} /** 重置列表元素 **/ 
+ul, ol { list-style: none; } 
+/** 重置超链接元素 **/a 
+{ text-decoration: none; color:#333;} 
+a:hover { text-decoration: underline; color:#F40; } 
+/** 重置图片元素 **/img{ border:0px;} 
+/** 重置表格元素 **/ 
+table { border-collapse: collapse; border-spacing: 0; }
+.head{ height:100px; line-height:100px; background:rgba(0,0,0,1.00); }
+.head ul{ float:right;}
+.head ul li{ display:inline-block; color:rgba(255,255,255,1.00); margin:0 20px; }
+.head ul a:hover{ color:rgba(146,146,146,1.00);}
+body{ background: rgba(177,177,177,1.00);}
+.main{ width:95%; min-height:800px; margin:0 auto; position: relative; margin:20px;}
+.left{ width:75%; min-height:800px;  float:left;}
+.right{ width:20%; min-height:800px; float:right;}
+.page_one{ width:100%; min-height:700px; background:rgba(255,255,255,1.00); border-right:1px solid rgba(75,75,75,1.00);border-bottom:1px solid rgba(75,75,75,1.00);}
+.page_two{ width:100%; min-height:400px; background:rgba(255,255,255,1.00); border-right:1px solid rgba(75,75,75,1.00);border-bottom:1px solid rgba(75,75,75,1.00); margin-top:20px;}
+.page_three{ width:100%; min-height:400px; background:rgba(255,255,255,1.00); border-right:1px solid rgba(75,75,75,1.00);border-bottom:1px solid rgba(75,75,75,1.00);margin-top:20px;}
+.page_four{ width:100%; min-height:400px; background:rgba(255,255,255,1.00); border-right:1px solid rgba(75,75,75,1.00);border-bottom:1px solid rgba(75,75,75,1.00);margin-top:20px;}
+.table{ width:100%; min-height:400px; background:rgba(255,255,255,1.00); border-bottom:1px solid rgba(75,75,75,1.00);border-right:1px solid rgba(75,75,75,1.00);}
+.suojin{padding:20px;}
+h1{ padding:10px 0;} h2{ color:rgba(124,124,124,1.00);} .suojin span{ padding:10px 10px 10px 0; display:inline-block; color:rgba(187,187,187,1.00);} p{ text-indent:2em;}
+.page_two li{ list-style-type:none; margin:10px;}
+.photo{ width:95%;}
+.photo_style{ width:100px; height:100px; border:1px solid rgba(160,160,160,1.00);}h3{ font-size:12px; text-align:center; height:20px; line-height:20px;} .photo_style img{ text-align:center; display:block; margin:0 auto; margin-top:5px; } .photo_same{ float:left; margin:20px;} td{ border:1px solid rgba(119,119,119,1.00)} table{ width:100%;}.table h1{  border-left:2px solid rgba(172,172,172,1.00); font-size:12px; text-indent: 1em;}

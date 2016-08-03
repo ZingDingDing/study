@@ -1,0 +1,83 @@
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, /* structural elements 结构元素 */
+dl, dt, dd, ul, ol, li, /* list elements 列表元素 */
+pre, /* text formatting elements 文本格式元素 */
+fieldset, lengend, button, input, textarea, /* form elements 表单元素 */
+th, td { /* table elements 表格元素 */
+    margin: 0;
+    padding: 0;
+}
+
+ul, ol { list-style: none; }
+/* 设置默认字体 */
+body,
+button, input, select, textarea { /* for ie */
+    /*font: 12px/1 Tahoma, Helvetica, Arial, "宋体", sans-serif;*/
+    font: 12px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif; /* 用 ascii 字符表示，使得在任何编码下都无问题 */
+}
+
+h1 { font-size: 18px; /* 18px / 12px = 1.5 */ }
+
+
+
+.main {
+	width: 90%;
+	background-color: #eee;
+	padding: 20px 20px;
+	margin:0 auto;
+	margin-top: 20px;
+	overflow: hidden;
+	border:1px solid;
+	position: relative;
+	min-height: 500px;
+	min-width: 824px;
+}
+
+.main .left{
+	width: 158px;
+	padding: 20px 20px;
+	background-color: white;
+	position: absolute;
+	top:20px;
+	left: 20px;
+	border:1px solid;
+}
+
+.main .left img{
+	height: 80px;
+	width: 80px;
+}
+
+.main .left>h1{
+	float: right;
+}
+
+.main .mid{
+	
+	max-width: 80%;
+	padding: 20px 20px;
+	background-color: white;
+	margin: 0 140px 0 220px;
+	font-size:18px; 
+	border:1px solid;
+}
+
+.main .right{
+	width: 118px;
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	background-color: white;
+	padding-top: 15px;
+	border:1px solid;
+}
+
+.main .right>ul li{
+	margin-bottom: 15px;
+	text-align: center;
+}
+
+
+.main .right>ul img{
+	height: 80px;
+	width: 80px;
+}
