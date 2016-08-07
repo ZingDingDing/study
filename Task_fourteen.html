@@ -24,18 +24,17 @@
   (function() {
 	    //选出空气质量指数大于60的城市，使用filter函数
 		var sortCount = aqiDate.filter(function(item){
-			return(item[1]>60);
+			   return (item[1]>60);
 			});
 	    //对于大于60的城市进行排序
 		sortCount.sort(function(a,b){
-			  return b[1]-a[1];
+			  return b[1] - a[1];
 			});
-		var apiList = document.getElementById("aqi-list");
+		var aqiList = document.getElementById("aqi-list");
 		//输出结果
-		for(var i = 0; i<sortCount.length;i++){
-			apiList.innerHTML+="<li>第" + (i+1) +"名：" + sortCount[i][0] + "（样例）," +sortCount[i][1] + "</li>" 
+		for(var i=0;i<sortCount.length;i++){
+			aqiList.innerHTML+="<li>第"+(i+1)+"名："+sortCount[i][0]+"（样例）,"+sortCount[i][1]+"</li>";
 			}
-	  
 	  })();
 </script>
 </body>
