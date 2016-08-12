@@ -21,25 +21,25 @@
   在事件处理函数中
   获取aqi-input输入的值，并显示在aqi-display中
   */
-  var $ = function(id){
-	    return document.getElementById(id);
-	  }
-  var hanlder = function(){
-	    var num = parseInt($("aqi-input").value);
-		if((!isNaN(num))&&(num>=0)&&(num<=1000)){
-			  $("aqi-display").innerHTML = num;
-			}else{
-				  alert($("aqi-input").value + "是不合法的数值!");
-				}
-	  }
-  $("button").onclick = function(){
-	   hanlder();
-	  }
-  $("aqi-input").onkeyup = function(event){
-	    if(event.keyCode === 13){
-			  hanlder();
-			}
-	  }
+ var $ = function(id){
+	   return document.getElementById(id);
+	 }
+ var handler = function(){
+	     var num = parseInt($("aqi-input").value);
+		 if((!isNaN(num))&&(num>=0)&&(num<=1000)){
+			   $("aqi-display").innerHTML = num;
+			 }else{
+				   alert($("aqi-input").value + "不是合法数值！");
+				 }
+$("button").onclick = function(){
+	  handler();
+	}
+	 }
+$("aqi-input").onkeyup = function(event){
+	   if(event.keyCode === 13){
+		   handler();
+		   }
+	}
 })();
 </script>
 </body>
