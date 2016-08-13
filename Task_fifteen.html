@@ -31,11 +31,12 @@
    function getData(){
 	   var ul = document.getElementById("source");
 	   var data = [];
-	   for (var i = 0;i < ul.childElementCount;i++){
+	   for(var i = 0;i < ul.childElementCount; i++){
 		   var li = ul.children[i];
 		   var strCity = li.innerHTML.split("空气质量:")[0];
 		   var num = Number(li.children[0].innerHTML);
 		   data.push([strCity,num]);
+		   
 		   }
 		return data;
 	   }
