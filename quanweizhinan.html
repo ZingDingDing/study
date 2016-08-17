@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>权威指南代码</title>
+<script>
+/*1.字符串中所有的方法看似返回了一个修改后的字符串，实际上返回的是一个新的字符串*/
+var s = "hello"
+var sa = s.toUpperCase();
+document.write("s = " + s + "</br>");
+document.write("sa = " + sa + "</br>"); 
+/*2.对象和原是数字不同，首先，对象的值是可以修改的*/
+var o = {x:1};  //定义一个对象
+o.x = 2;        //通过修改对象属性值来更改对象
+o.y = 3;        //改对象增加一个新的属性
+document.write(o + "</br>");
+document.write("o.x=" + o.x + "</br>");
+document.write("o.y=" + o.y + "</br>");
+/*3.数组也是可以被修改的*/
+var a = [1,2,3];
+a[0] = 0;
+a[3] = 3;
+for (var i = 0;i < a.length;i++){
+	document.write("a" + [i] + "=" + a[i] + "</br>")
+	}
+/*4.对象的比较不是值得比较：即使两个对象包含同样的属性以及相同的值，他们也不是相等的。各个索引元素完全相等的两个数组也不相等*/
+var a = {x:1}, p = {x:1};
+document.write(String(a===p) + "</br>");
+var a =[];b = [];
+document.write(String(a === b) + "</br>");
+/*5.对象的比较都是引用的比较：当且仅当他们引用容一个基对象时，他们才相等*/
+var a = [];  //定义一个引用空数组的变量a
+var b = a;   //变量b引用同一个数组
+b[0] = 1;    //通过变量b来修改引用的数组
+document.write("a[0]=" + a[0] + "</br>");  //变量a通过变量b被修改了
+document.write(String(a === b) + "</br>");  //a和b引用同一个数组，因此他们相等
+/*6.通过循环来完成数组的复制*/
+var a = ['a','b','c'];  //等待复制的数组
+var b = [];             //复制到的目标空数组
+for (var i = 0;i < a.length; i++){
+	b[i] = a[i];
+	document.write("b" + "[" + i + "]=" + b[i] + "</br>");
+	}
+/*7.同样的，如果我们想比较两个单独的对象和数组，则必须比较他们的属性和元素。下面代码定义了一个比较两个数组的函数*/
+function eqalArrays (a,b){
+	if(a.length != b.length) return false;  //两个长度不同的数组不相等
+	for(var i = 0;i < a.length; i++)
+		if (a[i] !== b[i] ) return false;
+	return true;	
+		
+	}
+/*3.8.0灵活的隐式类型转换：下列是“==”结果比较全是true的一串代码*/
+if((null == undefined)&&("0" == 0)&&(0 == false)&&("0" == false)){
+	document.write("这些‘==’比较全为true，里面做了灵活的隐式类型转换" + "</br>");
+	}
+/*3.8.1、Number类定义的Tostring()方法 可以接收表示转换基数的可选参数，不过不指定这个参数，转换规则将是基于十进制。同样，亦可以将数字转换为其他进制数*/
+var n = 17;  //
+document.write(n.toString(2) + "</br>");  //转换为二进制数
+document.write("0" + n.toString(8) + "</br>");  //转换为八进制数
+document.write("0x" + n.toString(16) + "</br>");  //转换为十六进制数
+/*3.8.2、toFixed()根据小数点后的指定位数将数字转换为字符串，他从不使用指数计数法；
+         toExponential()使用指数计数法将数字转换为指数形式的字符串；
+		 toPrecision()根据指定的有效数字位数将数字转换为字符串，如果有效数字的位数少于数字整数部分的位数，则转换成指数形式。
+		 不过，三个方法都会适当地进行四舍五入或填充0.*/
+var n = 123456.789;
+document.write(n.toFixed(0) + "</br>");
+document.write(n.toFixed(0) + "</br>");
+document.write(n.toFixed(5) + "</br>");
+document.write(n.toExponential(1) + "</br>");
+document.write(n.toExponential(3) + "</br>");
+document.write(n.toPrecision(4) + "</br>");
+document.write(n.toPrecision(7) + "</br>");
+document.write(n.toPrecision(10) + "</br>");
+/*3.8.3、parseInt和parseFlat函数是全局函数，不从属于任何类的方法。parseInt解析整数，parseFloat解析整数和浮点数，如果前面为“0x”或者“0X”则会解释为十六进制数；如果第一个非空格字符是非法的数字直接量，将最终返回NAN*/
+document.write(parseInt("3 blind mice") + "</br>");
+document.write(parseFloat(" 3.14 maters") + "</br>");
+document.write(parseInt("-12.34") + "</br>");
+document.write(parseInt("0xff") + "</br>");
+document.write(parseInt("0XFF") + "</br>");
+document.write(parseFloat(".1") + "</br>");
+document.write(parseInt(".1") + "</br>");
+document.write(parseFloat("$72.47") + "</br>");
+/*3.8.4、parseInt()可以接收第二个可选参数，这个参数指定数字转换的基数，合法的取值范围是2 ~ 36*/
+document.write(parseInt("11",2) + "</br>");
+document.write(parseInt("ff",16) + "</br>");
+document.write(parseInt("zz",36) + "</br>");
+document.write(parseInt("077",8) + "</br>");
+document.write(parseInt("077",10) + "</br>");
+/*3.8.5、下面的代码展示了日期对象和“+”、“-”、“==”以及“>”的运行结果*/
+var now = new Date();                               //创建一个日期对象
+document.write(typeof (now + 1) + "</br>");         //字符串将数字转换为字符串
+document.write(typeof (now - 1) + "</br>");         //数字到数字的转换
+document.write((now == now.toString()) + "</br>");  //true  隐式的和显式的字符串转换     
+document.write((now > (now - 1)) + "</br>");        //true  ">"将日期转换为数字
+</script>
+</head>
+
+<body>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
