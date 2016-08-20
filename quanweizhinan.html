@@ -92,6 +92,96 @@ document.write(typeof (now + 1) + "</br>");         //字符串将数字转换�
 document.write(typeof (now - 1) + "</br>");         //数字到数字的转换
 document.write((now == now.toString()) + "</br>");  //true  隐式的和显式的字符串转换     
 document.write((now > (now - 1)) + "</br>");        //true  ">"将日期转换为数字
+/*3.9.0、变量声明部分理解的还好，没有什么困难的地方*/
+
+/*3.10.0 在函数体内，局部变量的优先级高于同名的全局变量。如果在函数内声明一个局部变量或者函数参数中带有的变量和全局变量重名，那么全局变量就被局部变量所遮盖。（自己的理解遮盖但是没有被改变）*/
+var scope = "global";   //声明一个全局变量
+function checkscope(){
+	var scope = "local";   //声明一个同名的局部变量
+	
+	document.write(scope + "局部变量的值被改变了</br>");
+	return scope;             //返回的是局部变量的值，而不是全局变量的值
+	}
+checkscope();
+document.write(scope + "全局变量的值依然没有被改变</br>");
+/*3.10.1、函数定义是可以嵌套的。由于每个函数都有他自己的作用于，因此会出现几个局部作用于嵌套的情况*/
+var scope = "global";
+function checkscope2(){
+	var scope = "local scope";
+	document.write(scope + "这是第一层局部变量</br>")
+	function nested(){
+		var scope = "nested scope";
+		document.write(scope + "这是第二层局部变量</br>");
+		return scope;
+		}
+	return nested();
+	}
+checkscope2();
+/*3.10.2 */
+function test(o){
+	var i = 0;        //i在整个函数体内都是由定义的
+	if(typeof o == "object"){
+		var j =0;              //j在函数体内是有定义的，不仅仅是在这个代码短内
+		for(var k = 0;k < 10; k++){   //k在函数体内是有定义的，不仅仅是在循环内
+		    document.write(k + "输出0~9的数字</br>");
+			
+			}
+		document.write(k + "j已经定义了，输出10</br>");                  
+		}
+	document.write(j + "j已经定义了，但可能没有初始化</br>");
+	}
+test(o);
+/*3.10.3*将函数体内的变量声明“提前”到函数体顶部，同时变量初始化留在原来的位置*/
+var scope = "global";
+function f (){
+	document.write(scope + "</br>");   //输出“undefined”，而不是“global”
+	var scope = "local";              //变量在这里初始赋值，但变量本身在函数体内任何地方均是有定义的
+	document.write(scope + "</br>");  //输出“local”
+	}
+f();
+/*3.10.4、加深上面知识点的理解*/
+function f1(){
+	var scope;                  //在函数顶部声明了局部变量
+	document.write(scope + "</br>");    //变量存在，但是初始值为"undefined"
+	scope = "local";                //这里将其初始化并且赋值
+	document.write(scope + "</br>");
+	}
+f1();
+/*3.10.5、当声明一个JavaScript全局变量时，实际上是定义了全局 对象的一个属性。当使用var声明一个变量时，创建的这个属性是不可以配置的，也就是说这个变量无法通过delete运算符删除。为生命的变量赋值的话，是可以使用sdelete运算符删除的。*/
+//var truevar = 1;   //声明一个不可以删除的全局变量
+//fakevar = 2;       //创建全局对象的一个可以删除的属性
+//this.fakevar2 = 3;  //同上
+//delete truevar;     //=>false:变量并没有被删除
+//document.write(truevar + "truevar变量并没有被delete运算符删除</br>");
+//delete fakevar;     //=>true:变量已经被删除
+//document.write(fakevar +  "变量被运算符删除了</br>");
+//delete this.fakevar2;   //=>tue：变量被删除了
+///*第四章表达式和运算符  哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈*/
+///*4.6.0、对象创建表达式：创建一个对象并调用一个函数（这个函数被称作构造函数）初始化新对象的属性。对象创建表达式和函数调用表达式非常类似，只是对象创建表达式之前多了一个关键字new*/
+//new Object ();
+//new Point(2,3);
+///*4.7.0运算符概述：按照操作数的个数可以分为一元运算符、二元运算符、三元运算符“?:”将三个表达式合并成一个表达式*/
+///*4.9.0  in运算符：in运算符希望它的左操作数是一个字符串或者可以转换为字符串，希望它右操作数是一个对象。如果右侧的对象拥有一个名为左操作数值的属性名，那么表达式返回true。*/
+//var point = { x:1, y:1 };    //定义一个对象
+//"x" in point;                 //=>true:队友有一个名为x的属性
+//"z" in point;                //=>false:对象中不存在名为z的属性
+//"toString" in point  ;        //=>true:对象继承了toString()方法
+//var data = [7,8,9];          //拥有三个元素的数组
+//"0" in data     ;             //=>true:数组包含元素“0”
+//1 in data   ;                 //=>true:数字转换为字符串
+//3 in data   ;                 //=>falase:没有索引为3的元素
+///*4.9.1、instanceof运算符:instanceof运算符希望左操作数是一个对象，右操作数是标识对象的类。如果左侧的对象是右侧类的实例，则返回true；否则返回false
+//*/
+var d = new Date();  //通过date构造函数创建一个新对象
+document.write(String(d instanceof Date) + "</br>");
+document.write(String(d instanceof Object) + "</br>");   //所有的对象都是Object的实例
+document.write(String(d instanceof Number) + "</br>");  // d不是一个Number对象
+var a = [1,2,3] ;
+document.write(String(a instanceof Array) + "</br>" );   //a是一个数组
+document.write(String(a instanceof Object) + "</br>" );  //所有的数组都是对象
+document.write(String(a instanceof RegExp) + "</br>" );  //数组不是正则表达式
+/*第五章节 语句*/
+
 </script>
 </head>
 
