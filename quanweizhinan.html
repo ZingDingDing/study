@@ -181,7 +181,75 @@ document.write(String(a instanceof Array) + "</br>" );   //a是一个数组
 document.write(String(a instanceof Object) + "</br>" );  //所有的数组都是对象
 document.write(String(a instanceof RegExp) + "</br>" );  //数组不是正则表达式
 /*第五章节 语句*/
-
+/*5.4.0、下面的switch语句根据值得类型将该值转换为字符串*/
+function convert (x){
+	switch(typeof x){
+		case 'number':
+		     return x.toString(16);   //将数组转换为十六进制数
+		case 'string':
+		     return '"' + x + '"';     //返回两端带双引号的字符串
+		default:
+		     return String(x);
+		}
+	}
+/*5.5.0、*/
+var count = 0
+while(count < 10){
+	document.write(count + "</br>");
+	count++;
+	}
+/*5.5.1、错误处理*/
+try{
+	var n = Number(prompt ("请输入一个正整数",""));
+	var f = factorial(n);
+	alert (n + "! = " + f);
+	}
+catch(ex){
+	alert(ex);
+	}
+/*第六章对象*/
+/*6.0.0、对象拥有三个相关的对象特性：对象的原型指向另外一个对象，本对象的属性继承自它的原型对象；对象的类是一个标识对象类型的字符串；对象的扩展标记指明了是否可以向该对象添加新属性。内置对象室友ECM规范定义的对象或者类，例如数组函数日期和正则表达式都是内置对象。宿主对象只有JavaScript解释器所嵌入的宿主环境定义的。自定义对象是由运行中的JavaScript代码创建的对象。自有对象是直接在对象中定义的属性。继承属性是指在对象的原型链对象中定义的属性。*/
+/*6.1.0、可以通过对象直接量、关键字new和Objict.create（）函数来创建对象。*/
+/*6.1.1、对象直接量创建对象*/
+var empty = {};
+var point = {x:0,y:0};
+var point2 = {x:point.x,y:point.y};
+var book = {
+	"main title":"javascript",                //属性名字里面有空格，必须用字符串表示
+	'sub-title':"The definitive guide",       //属性名字里面有连接符，必须用字符串表示
+	"for":"all audiences",                    //“for”是保留字，因此必须用引号
+	author:{
+		firstname:"David",                    //注意：这里的属性名都没有引号                       
+		surname:"Flanagan",
+		}
+	};
+/*6.1.2、通过new来创建对象*/
+var o = new Object();      //创建一个空对象，和{}一样
+var a = new Array();       //创建一个空数组，和[]一样
+var d = new Date();        //创建一个表示当前时间的Date对象
+var r = new RegExp();      //创建一个可以进行模式匹配的RegExp对象
+/*6.1.3、原型。所有通过对象直接量创建的对象都具有同一个原型对象，并可以通过JavaScript代码Obijct.prototype获得对原型对象的引用。通过关键字new和构造函数调用创建的对象的原型就是构造函数的prototype属性的值。因此，同时用{}创建对象一样，通过new Object（）创建的对象也继承自object.prototype。同意，通过new Arry()创建的对象的原型就是Array.prototype,通过new Date()创建的对象的原型就是Date.prototype.没有圆形的对象不多*/
+/*6.1.4、Object.crate()是一个静态函数，而不是提供给某个对象调用的方法。只需要传入所需要的原型对象即可*/
+var o1 = Object.create({x:1,y:2});   //o1继承了属性x和y
+/*可以通过传入参数null来创建一个没有圆形的新对象，但通过这种方式创建的对象不会继承任何东西，甚至不包括基础方法，比如toString（），也就是说，她将不能和“+”运算符一起正常工作。*/
+var o2 = Object.create(null);    //o2不继承任何属性和方法
+/*如果想创建一个普通的空对象，需要传入Object.prototype:*/
+var o3 = Object.create(Object.prototype);     //o3和{}和new Object()一样
+/*通过原型继承创建一个新对象*/
+//inheri()返回一个继承自原型对象p的属性的对象
+//这里使用ECM5中的Object.create()函数（如果存在的话）
+//如果不存在Object.create(),则退化成其他的方式
+function inherit(p){
+	if (p == null)throw TypeError();                    //p是一个对象，但不能是null
+	if (Object.create)                                  //如果Object.create()存在
+	           return Object.create(p);                 //直接使用它
+	var t = typeof p;                                  //否则进行进一步检测
+	if(t !=="object"&&t !=="function") throw TypeError();
+	function f (){};                                //定义一个空的构造函数
+	f.prototype = p;                                 //将其原型设置为p
+	return new f();                                 //使用f ()创建p的继承对象
+	}
+/*6.2.0属性的查询和设置*/
 </script>
 </head>
 
