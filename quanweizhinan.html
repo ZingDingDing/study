@@ -249,7 +249,93 @@ function inherit(p){
 	f.prototype = p;                                 //将其原型设置为p
 	return new f();                                 //使用f ()创建p的继承对象
 	}
-/*6.2.0属性的查询和设置*/
+/*6.2.0属性的查询和设置*setter方法是有对象o调用的，而不是定义这个属性的原型对象调用的。因此如果setter方法定义任意属性，这个操作知识针对o本身，并不会修改原型链*/
+/*6.2.3、查询一个不存在的属性并不会报错，如果在对象o自身的属性或者继承的属性中均未找到属性x，属性访问表达式o.x返回undefined。但是，如果对象不存在，那么师徒查询这个不存在的对象的属性就会报错。*/
+/*6.3.0删除属性，delete只能删除自有属性，不能删除继承属性（要删除继承属性必须从定义这个属性的原型对象上面删除它，而且这会影响到所有继承自这个原型的对象。）*/
+/*6.4.0、检测属性，in运算符的左侧是属性名（字符串），右侧是对象。如果对象的自由属性或者继承属性中包含这个属性则返回true*/
+var o = {x:1};
+"x" in o;           //true:“x”是o的属性
+"y" in o;           //false：“y”不是o的属性
+"toString" in o;    //true：“toString是o继承的属性”
+/*6.4.1、对象hasOwnProperty()方法用来检测给定的名字是否是对象的自有属性。对于继承属性它将返回false；*/
+var o = {x:1};
+o.hasOwnProperty("x");
+o.hasOwnProperty("y");
+o.hasOwnProperty("toString");
+/*6.4.2、除了使用in运算符之外，另一种更简单的方法是使用!==判断一个属性是否是undefined;*/
+var o = {x:1};
+o.x !== undefined;
+o.y !== undefined;
+o.toString !== undefined;
+/*6.5.0、枚举属性，for/in循环可以在循环体中遍历对象中所有可枚举的属性（包括自有属性和继承属性），把属性名称赋值给循环变量。对象继承的内置方法不可枚举，但在代码中给对象添加的属性都是可以枚举的。*/
+var o = {x:1,y:2,z:3};    //三个可枚举的自有属性
+o.propertyIsEnumerable("toString")   //false:不可枚举
+for(p in o)          //遍历属性
+console.log(p);    //输出xyz，不会输出toString
+/*6.5.1、有需要使用工具库给Object.prototype添加了以新的方法和属性，这些方法和属性可以被所有对象继承和使用。然而ECM5标准之前，这些新添加的方法是不能定义为不可枚举的，因此他们都可以在for/in循环中枚举出来。为了避免这种情况，需要过过滤for/in循环返回的属性，下面两种方式是最常见的*/
+for(p in o){
+	if(!o.hasOwnProperty(p)) continue;    //跳过继承的属性
+	}
+for(p in o){
+	if(typeof o[p] === 'function')  continue;   //跳过方法
+	}
+/*6.5.2、下面定义了一些有用的工具函数来操控对象的属性，这些函数用到了for循环。实际上extend()函数经常出啊现在JavaScript使用工具库中。用来枚举属性的对象工具函数*/
+//把p中的可枚举属性复制到o中，并返回o
+//如果o和p中含有同名属性，则覆盖o中的属性
+//这个函数并不处理getter和setter以及复制属性
+function extend(o ,p){
+	for(prop in p){              //遍历p中的所有属性
+		o[prop] = p[prop];        //将属性添加到o中
+		}
+	return o;	
+	}
+//降p中的可枚举属性复制到o中，并返回o
+//如果o和p中有同名的属性，o中的属性将不受影响
+//这个函数兵不处理getter和setter以及复制属性
+function merge(o,p){
+	for(prop in p){                     //遍历p中的所有属性
+		if(o.hasOwnProperty[prop]) continue;   //过滤掉已经在o中存在的属性
+		o[prop] = p[prop];
+		}
+	return o;
+	}
+//如果o中的属性在p中没有同名属性，则从o中删除这个属性
+//返回o
+function restrict(o,p){
+	for(prop in o){               //遍历o中的所有属性
+		if(!(prop in p)) delete p[prop];            //从o删除（删除一个不存在的属性不会报错）
+		}
+	return o;
+	}
+//如果o中的属性在p中存在同名属性，则从o中删除这个这个属性
+//返回o
+function subtract(o,p){
+	for(prop in p){               //遍历p中的所有属性
+		delete o[prop];     //从o中删除（删除一个不存在的属性不会报错）
+		}
+	return o;
+	}
+//返回一个新对象，这个对象同时拥有o的属性和p的属性
+//如果o和p中有聪明树型，使用p中的属性值
+function union(o,p){return extend(extend({},o),p);}
+//返回一个新对象，这个对象拥有同时在o中和p中出现的属性
+//很像求o和p的交集，但p中属性的值被忽略
+function intersection(o,p){return restrict (extend({},o),p);}
+//返回一个数组，这个数组包含的是o中可枚举的自有属性的名字
+function keys (o){
+	if(typeof o !== "object") throw TypeError(); //参数必须是对象
+	for(var prop in o){                   //遍历所有可枚举的属性
+	      if(o.hasOwnProperty(prop))      //判断是否是自有属性
+		  result.push(prop);             //降属性添加到数组中
+		
+		}
+		return result;                //返回这个数组
+	}
+/*6.5.3、除了for/in循环之外，ECM5定义了两个用以枚举属性名称的函数。第一个是Object.keys(),它返回一个数组，这个数组由对象中可枚举的自有属性的名称组成，他的工作原理和上面的工具函数keys()类似。
+    第二个枚举属性的函数是Object.getOwnPropertyNames(),他和Object.keys()类似，只是他返回对象的所有自有属性的名称，而不仅仅是可枚举属性。这是一个很大的区别
+*/
+
+
 </script>
 </head>
 
