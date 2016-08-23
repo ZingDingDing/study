@@ -334,6 +334,43 @@ function keys (o){
 /*6.5.3、除了for/in循环之外，ECM5定义了两个用以枚举属性名称的函数。第一个是Object.keys(),它返回一个数组，这个数组由对象中可枚举的自有属性的名称组成，他的工作原理和上面的工具函数keys()类似。
     第二个枚举属性的函数是Object.getOwnPropertyNames(),他和Object.keys()类似，只是他返回对象的所有自有属性的名称，而不仅仅是可枚举属性。这是一个很大的区别
 */
+/*6.6.0、getter属性和setter属性，定义存取器属性最简单的方法是使用对象直接量语法的一种扩展写法*/
+var o = {
+	//普通的数据属性
+	data_prop:value,
+	//存取器属性都是成对定义的函数
+	get accessor_prop(){/*这里是函数体*/},
+	set accessor_prop(value){/*这里是函数体*/}
+	};
+/*6.6.1、下面这个表示2D笛卡尔点坐标的对象。他有两个普通的属性x和y分别表示对应点的x坐标和y坐标，他还有两个等价的存取器属性用来表示点的极坐标*/
+var p = {
+	//x和y是普通的可读写的数据属性
+	x:1.0,
+	y:1.0,
+	//r是可读写的存取器属性，他有getter和setter
+	//函数体结束后不要忘记加上逗号
+	get r (){return Math.sqrt(this.x*this.x  + this.y*this.y);},
+	set r (newvalue){
+		var oldvalue = Math.sqrt(this.x*this.x + this.y*this.y);
+		var ratio = newvalue/oldvalue;
+		this.x  *= ratio;
+		this.y *= ratio;
+		
+		},
+	//theat是只读存取器助兴，他只有getter方法
+	get theat (){return Math.atan2(this.y,this,x);}
+	};
+/*7.5.0、驻足元素的添加和删除，除了使用添加索引赋值之外，我们还可以使用push()方法在数组末尾增加一个或多个元素*/
+a = [];
+a.push("zero");     //在末尾添加一个元素
+a.push("one","two");  //再添加两个元素。
+/*7.5.1、可以使用unshift方法在数组首部插入一个元素，并且将其他元素一次移到更高的索引出。可以像删除对象属性一样使用delete运算符来删除数组*/
+a = [1,2,3,];
+delete a[1];
+1 in a;
+/*7.6.0、使用for循环来遍历数组*/
+var keys = Ob
+
 
 
 </script>
